@@ -1,0 +1,46 @@
+def numericalize(df, col, name, max_n_cat):
+    """ Changes the column col from a categorical type to it's integer codes.
+
+    Parameters:
+    -----------
+    df: A pandas dataframe. df[name] will be filled with the integer codes from
+        col.
+
+    col: The column you wish to change into the categories.
+    name: The column name you wish to insert into df. This column will hold the
+        integer codes.
+
+    max_n_cat: If col has more categories than max_n_cat it will not change the
+        it to its integer codes. If max_n_cat is None, then col will always be
+        converted.
+
+    Examples:
+    ---------
+    >>> df = pd.DataFrame({'col1' : [1, 2, 3], 'col2' : ['a', 'b', 'a']})
+    >>> df
+       col1 col2
+    0     1    a
+    1     2    b
+    2     3    a
+
+    note the type of col2 is string
+
+    >>> train_cats(df)
+    >>> df
+
+       col1 col2
+    0     1    a
+    1     2    b
+    2     3    a
+
+    now the type of col2 is category { a : 1, b : 2}
+
+    >>> numericalize(df, df['col2'], 'col3', None)
+
+       col1 col2 col3
+    0     1    a    1
+    1     2    b    2
+    2     3    a    1
+    """
+    if not is_numeric_dtype(col) and ( max_n_cat is None or len(col.cat.categories)>max_n_cat):
+        df[name] = col.cat.codes+1
