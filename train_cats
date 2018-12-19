@@ -1,0 +1,3 @@
+def train_cats(df):
+    for n,c in df.items():
+        if is_string_dtype(c): df[n] = c.astype('category').cat.as_ordered()
