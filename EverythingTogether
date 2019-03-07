@@ -80,10 +80,10 @@ def proc_df(df, y_fld=None, skip_flds=None, ignore_flds=None, do_scale=False, na
         df.drop([a + '_na' for a in list(set(na_dict.keys()) - set(na_dict_initial.keys()))], axis=1, inplace=True)
     if do_scale: mapper = scale_vars(df, mapper)
     for n,c in df.items(): numericalize(df, c, n, max_n_cat)
-	if tree is True:
-		df = pd.get_dummies(df, dummy_na=True)
-	else:
-		df = pd.get_dummies(df, dummy_na=True, drop_first=True)
+    if tree is True:
+    	df = pd.get_dummies(df, dummy_na=True)
+    else:
+    	df = pd.get_dummies(df, dummy_na=True, drop_first=True)
     df = pd.concat([ignored_flds, df], axis=1)
     res = [df, y, na_dict]
     if do_scale: res = res + [mapper]
